@@ -1,0 +1,83 @@
+
+
+<!-- <div class="container"> -->
+  <div class="content">
+      <div class="row">
+        <!-- height-screen-85 -->
+          <div class="col-lg-2 col-sm-3 col-xs-4  left-menu">
+            <h5><i class="pi pi-cog"></i> Dashboard</h5>
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <a class="nav-link active" id="v-pills-dash-tab" data-toggle="pill" href="#v-pills-dash" role="tab" aria-controls="v-pills-dash" aria-selected="true">หน้าหลัก</a>
+              <a class="nav-link " id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">จัดการหมวดหมู่ </a>
+              <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">จัดการคอร์สเรียน</a>
+              <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">จัดการบทเรียน</a>
+              <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">จัดการวิดีโอ</a>
+            </div>
+          </div>
+          <!-- height-screen-85 -->
+          <div class="col-lg-10 col-sm-9 col-xs-8  content-panel">
+            <div class="tab-content" id="v-pills-tabContent">
+              <div class="tab-pane fade show active" id="v-pills-dash" role="tabpanel" aria-labelledby="v-pills-dash-tab">
+                  <h3>รายการชำระเงิน</h3>
+                  <hr>
+                  <table class="table">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">รหัสการชำระเงิน</th>
+                          <th scope="col">ชื่อลูกค้า</th>
+                          <th scope="col">ชื่อคอร์ส</th>
+                          <th scope="col">ราคา</th>
+                          <th scope="col">ยอดที่ชำระ</th>
+                          <th scope="col">สถานะ</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                          <td>@fat</td>
+                          <td>@fat</td>
+                          <td>@fat</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Larry</td>
+                          <td>the Bird</td>
+                          <td>@twitter</td>
+                          <td>@twitter</td>
+                          <td>@twitter</td>
+                          <td>@twitter</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+              </div>
+              <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <app-category></app-category>
+              </div>
+              <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <app-course></app-course>
+              </div>
+              <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                <app-lesson></app-lesson>
+              </div>
+              <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                <app-video></app-video>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+<!-- </div> -->

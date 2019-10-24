@@ -1,0 +1,288 @@
+
+
+
+@media (min-width: 300px) {
+  .pager {
+    margin-top: 14%;
+  }
+  .menu-tab-xs {
+    display: block;
+    margin-top: 14%;
+  }
+  .menu-tab {
+    display: none;
+  }
+ }
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .pager {
+    margin-top: 14%;
+  }
+  .menu-tab-xs {
+    display: block;
+    margin-top: 14%;
+  }
+  .menu-tab {
+    display: none;
+  }
+ }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .pager {
+    margin-top: 7%;
+  }
+  .menu-tab-xs {
+    display: block;
+    margin-top: 6%;
+  }
+  .menu-tab {
+    display: none;
+  }
+
+ }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .pager {
+    margin-top: 7%;
+  }
+  .menu-tab-xs {
+    display: block;
+  }
+  .menu-tab {
+    display: none;
+  }
+  @media (min-width:900px) and (max-width:1024px) {
+    .col-ipad-pro-4 {
+      -webkit-box-flex: 0;
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+    }
+    .pager {
+      margin-top: 7% ;
+    }
+    .menu-tab-xs {
+      display: none;
+      margin-top: 6%;
+    }
+    .menu-tab {
+      display: block;
+    }
+  }
+ }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .pager {
+    margin-top: 3%;
+  }
+  .menu-tab-xs {
+    display: none;
+  }
+  .menu-tab {
+    display: block;
+  }
+ }
+
+
+
+
+ .menu-tab-xs {
+  background: #0e0e0e96;
+  // borderradius: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: fixed;
+  z-index: 90;
+  color: #cacaca;
+  cursor: pointer;
+  // display: none;
+}
+
+
+
+// .pager {
+//   margin-top: 3%;
+// }
+.panel-list{
+  padding-bottom : 20px;
+  cursor: pointer;
+}
+
+.img-header {
+  // width: 720px;
+  width: 100%;
+  height: 300px;
+  border-radius: 4px;
+  @media screen and (max-width: 500px) {
+   display: none;
+    .content {
+        margin-top: 30.5%;
+      }
+  }
+
+}
+
+
+
+
+
+.head-line{
+   margin-top: 60px;
+   margin-bottom: -50px;
+   display: flow-root;
+   p{
+    font-size: 20pt;
+    font-weight: 300;
+   }
+   .view-all{
+     cursor: pointer;
+     float:right;
+      a {
+        color:green;
+      }
+   }
+   .view-all:hover{
+    text-decoration: underline;
+   }
+}
+
+$gray: #555;
+$yellow: #f2e968;
+$white: #efefef;
+
+.grid-item {
+  color: #fff;
+  background: 5ac8e60d;
+  // padding: 3.5em 1em;
+  font-size: 1em;
+  font-weight: 700;
+
+}
+
+.header {
+  background-color: darken(skyblue, 60%);
+  grid-area: header;
+  padding: 1em;
+}
+
+.title {
+  color: $gray;
+  background-color: lighten(skyblue, 25%);
+  grid-area: title;
+}
+
+.main {
+  color: lighten($gray, 25%);
+  background-color: lighten(skyblue, 60%);
+  grid-area: main;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+}
+
+.items {
+  position: relative;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  transition: all 0.1s;
+  transform: scale(0.99);
+  will-change: transform;
+  user-select: none;
+  cursor: pointer;
+
+  div {
+    white-space: normal;
+     font-size: 16px !important;
+     span {
+      font-size: 13.5px;
+     }
+  }
+}
+
+.items.active {
+  background: rgba(255,255,255,0.3);
+
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  transform: scale(1);
+}
+
+
+
+.item {
+  display: inline-block;
+  margin: 2em 1em;
+  @media screen and (max-width: 500px) {
+  //....
+  }
+  div {
+    white-space: normal;
+    font-size: 16px;
+     span {
+      font-size: 13.5px;
+     }
+  }
+}
+
+
+
+
+.menu-tab {
+  height: 100vh;
+  border: 1px solid #80808057;
+  border-radius: 5px;
+  padding: 10px;
+  // display: none;
+  .menu-tab-header {
+
+    padding: 0.8rem 1.5rem;
+
+    h6 {
+      font-size: 1.2rem;
+     }
+  }
+
+  .menu-item {
+    position: relative;
+    text-align: left;
+    font-size: 16px;
+    min-height: 34px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+
+
+    .menu-text {
+      float: left;
+      font-weight: 500;
+    }
+    .menu-icon {
+      float: right;
+      line-height: 2;
+      font-weight: 500;
+    }
+  }
+
+  .menu-item:hover {
+    .menu-text {
+      color:#fff;
+    }
+    .menu-icon {
+      color:#fff;
+    }
+
+    background-color: #177b90;
+  }
+
+
+
+
+}
+

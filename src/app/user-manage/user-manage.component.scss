@@ -1,0 +1,52 @@
+
+
+@media (min-width: 300px) {
+  .pager {
+    margin-top: 14%;
+  }
+
+ }
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .pager {
+    margin-top: 14%;
+  }
+
+ }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .pager {
+    margin-top: 7%;
+  }
+
+
+ }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .pager {
+    margin-top: 7%;
+  }
+
+  @media (min-width:900px) and (max-width:1024px) {
+    .col-ipad-pro-4 {
+      -webkit-box-flex: 0;
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+    }
+    .pager {
+      margin-top: 7% ;
+    }
+
+  }
+ }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .pager {
+    margin-top: 3%;
+  }
+
+ }
+

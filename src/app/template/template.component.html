@@ -1,0 +1,292 @@
+
+<!-- <div class="topnav" id="myTopnav">
+  <a href="#home" class="active">Home</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <a href="javascript:void(0);" class="icon" (click)="myFunction()">
+    <i class="pi pi-bars"  ></i>
+  </a>
+</div>
+
+<div style="padding-left:16px">
+  <h2>Responsive Topnav Example</h2>
+  <p>Resize the browser window to see how it works.</p>
+</div> -->
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light nav-2">
+  <img src="../../assets/images/logo.png" alt="" class="img-logo"  [routerLink]="['/']">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+      <li class="nav-item">
+          <form class="form-inline my-3 my-lg-0"  [formGroup]="searchFrom" >
+              <input class="form-control mr-sm-3 header-search-form" type="search" formControlName="text" placeholder="ค้นหาคอร์สเรียน.......">
+              <button class="btn btn-outline-success my-2 my-sm-0 header-search-btn" (click)="search()" type="submit"><i class="pi pi-search"></i> ค้นหา</button>
+            </form>
+      </li>
+
+    </ul>
+    <a class="nav-link" [routerLink]="['/courses']" >คอร์สเรียน</a>
+    <a class="nav-link" href="#" >เกี่ยวกับเรา</a>
+
+
+    <ul *ngIf="userAuth"  class="navbar-nav" style="border-left: 1px solid #90909029;min-width: 180px;   ">
+      <li class="nav-item dropdown" >
+        <a  style=" letter-spacing: 1px;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="pi pi-user"></i> {{currentUser.user}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="['/mycourses']">คอร์สของฉัน</a>
+          <a class="dropdown-item"  href="#" data-toggle="modal" data-target="#userHistory">ประวัติการสั่งซื้อ</a>
+          <a class="dropdown-item" [routerLink]="['/profile']">จัดการข้อมูลส่วนตัว</a>
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#resetpassword">เปลี่ยนรหัสผ่าน</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" (click)="userLogout()" >
+           <i class="pi pi-sign-out"></i>  ออกจากระบบ
+          </a>
+        </div>
+      </li>
+    </ul>
+
+    <a  *ngIf="!userAuth"  class="nav-link" href="#" style="border-left: 1px solid #90909029;" data-toggle="modal" data-target="#exampleModalCenter"><i class="pi pi-user"></i> เข้าสู่ระบบ / สมัครสมาชิก</a>
+
+  </div>
+</nav>
+
+<!-- <div class="row nav-1" >
+      <div class="col-12 text-center nav-header" >
+        <img src="../../assets/images/logo.png" alt="" class="img-logo"  [routerLink]="['/']">
+      </div>
+      <div class="col-12 text-center menu-header">
+        <a  [routerLink]="['/courses']" >คอร์สเรียน</a>
+        <a  href="#" >เกี่ยวกับเรา</a>
+      </div>
+
+</div> -->
+
+
+<!-- Modal   login and register -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg " role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="padding-top: 0">
+        <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5> -->
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+              <h3 class="content-form-login" *ngIf="chkForm">เข้าสู่ระบบ</h3>
+              <h3 class="content-form-login" *ngIf="!chkForm">สมัครสมาชิก</h3>
+              <div class="row">
+                <div class="col-lg-6 login-panel-1 ">
+                  <form  [formGroup]="loginForm" >
+                    <!-- <form> -->
+                     <div class="content-form-login" *ngIf="chkForm">
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="text" formControlName="username" class="form-control" placeholder="อีเมลล์"  value="user.dummy@gmail.com">
+                          </div>
+                          <div class="input-group input-group-sm mb-3">
+                            <input type="password" formControlName="password" class="form-control" placeholder="รหัสผ่าน"  value="userdummy1234">
+                          </div>
+                          <div class="alert alert-danger" role="alert" *ngIf="loginError !== null">
+                            {{loginError}}
+                          </div>
+                          <!-- <button type="submit"  data-dismiss="modal" class="btn btn login-btn">เข้าสู่ระบบ</button> -->
+                          <button type="submit" (click)="userLogin()"  class="btn btn login-btn">เข้าสู่ระบบ</button>
+                          <p class="forget-password-text">ลืมรหัสผ่าน ?</p>
+                     </div>
+                </form>
+
+                <form [formGroup]="registerForm" (ngSubmit)="register()" >
+                     <div class="content-form-login" *ngIf="!chkForm">
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="text" formControlName="name" class="form-control" placeholder="ชื่อ" > &nbsp;&nbsp;
+                           
+                            <input type="text" formControlName="surname" class="form-control" placeholder="นามสกุล" >
+
+                          </div>
+                          <div class="input-group input-group-sm mb-3">
+                            <span class="help-block"
+                            *ngIf="!registerForm.get('name').valid
+                            && registerForm.get('name').touched">Please enter a valid name!</span>
+                          </div>
+                          <div class="input-group input-group-sm mb-3">
+                              <input type="email" formControlName="email" [email]="true" class="form-control" placeholder="อีเมลล์" >
+                             
+                          </div>
+                          <div class="input-group input-group-sm mb-3" style="margin-bottom: 0 !important;margin-top: -15px;" *ngIf="registerForm.controls.email.status === 'INVALID'">
+                            <p *ngIf="!registerForm.controls.email.errors.email" style="color: red;">* กรุณากรอก Email</p>
+                            <p *ngIf="registerForm.controls.email.errors.email" style="color: red;">* Email ไม่ถูกต้อง</p>
+                          </div>
+                          <div class="input-group input-group-sm mb-3">
+                            <input type="password" formControlName="password" class="form-control" placeholder="รหัสผ่าน" >
+                           
+                          </div>
+                          <div class="input-group input-group-sm mb-3" style="margin-bottom: 0 !important;margin-top: -15px;" *ngIf="registerForm.controls.password.status === 'INVALID'">
+                            <p *ngIf="!registerForm.controls.password.errors.minlength" style="color: red;">* กรุณากรอก รหัสผ่าน</p>
+                            <p *ngIf="registerForm.controls.password.errors.minlength" style="color: red;">* รหัสผ่านต้องมากว่า 6 ตัวอักษร</p>
+                          </div>
+                          <div class="input-group input-group-sm mb-3">
+                            <input type="password" class="form-control" (keyup)="passwordConfirm()" formControlName="password_confirmation" placeholder="ยืนยันรหัสผ่าน" >
+                          </div>
+                          <div class="input-group input-group-sm mb-3" style="margin-bottom: 0 !important;margin-top: -15px;" *ngIf="passConfirm">
+                            <p style="color: red;">* รหัสผ่านไม่ตรงกัน</p>
+                          </div>
+                         
+                          <button type="submit"  [disabled]="registerForm.status === 'INVALID'" class="btn btn login-btn">สมัครสมาชิก</button>
+                          <!-- <button type="submit" class="btn btn login-btn">เข้าสู่ระบบ</button> -->
+                     </div>
+                </form>
+                  <!-- </form> -->
+                </div>
+                <div class="col-lg-6 login-panel-2">
+                    <div class="or-box">
+                        <div class="line"></div>
+                        <div class="text">หรือ </div>
+                        <div class="line"></div>
+                      </div>
+                    <a class="btn btn-block btn-social btn-facebook content-form-login" >
+                      <span class="social-text">
+                        <svg class="svg-inline--fa fa-facebook-f fa-w-9" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M215.8 85H264V3.6C255.7 2.5 227.1 0 193.8 0 124.3 0 76.7 42.4 76.7 120.3V192H0v91h76.7v229h94V283h73.6l11.7-91h-85.3v-62.7c0-26.3 7.3-44.3 45.1-44.3z"></path></svg><!-- <i class="fab fa-facebook-f"></i> --></span>
+                        <div >Sign in with Facebook</div>
+                    </a>
+                    <a class="btn btn-block btn-social btn-google content-form-login" >
+                      <span class="social-text">
+                          <svg class="svg-inline--fa fa-google fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" data-fa-i2svg=""><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg></span>
+                        <div >Sign in with Google</div>
+                    </a>
+
+                </div>
+              </div>
+
+              <div class="row ">
+                  <div class="col-lg-12 text-right login-footer">
+                     <span *ngIf="chkForm"> สมาชิกใหม่? <a (click)="formToggle()" class="btn-register" >ลงทะเบียน</a> ที่นี่</span>
+                     <span *ngIf="!chkForm"><a (click)="formToggle()" class="btn-register">เข้าสู่ระบบ</a> ที่นี่</span>
+                  </div>
+              </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ///////// Modal Orders History /////////// -->
+<div class="modal fade" id="userHistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl " role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="padding-top: 0">
+          <!-- <h5 class="modal-title" id="exampleModalCenterTitle">ประวัติการสั่งซื้อของคุณ</h5> -->
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <h3>ประวัติการสั่งซื้อของคุณ</h3><hr>
+          <div class="row">
+            <div class="col-12 text-center">
+                <table class="table table-bordered   table-sm table-responsive text-nowrap ">
+                    <thead>
+                      <th style="width:5%">#</th>
+                      <th style="width:20%">รายการ</th>
+                      <th style="width:10%">ราคา (บาท)</th>
+                      <th style="width:15%">วันที่สั่งซื้อ</th>
+                      <th style="width:15%">วันที่ / เวลา ชำระเงิน</th>
+                      <th style="width:10%">สถานะ</th>
+                      <th style="width:20%">เอกสาร</th>
+                    </thead>
+                      <tbody >
+                        <tr>
+                          <td>1</td>
+                          <td><a href="#" [routerLink]="['/courses-view']"> เคล็ดลับข้อละล้าน ฉบับ Top Trader</a></td>
+                          <td>9,9999</td>
+                          <td>25/07/2562 16:30</td>
+                          <td>28/07/2562 22:00</td>
+                          <td><span class="badge badge-pill badge-warning">รอตรวจสอบการชำระเงิน</span></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><a href="#" [routerLink]="['/courses-view']"> เคล็ดลับข้อละล้าน ฉบับ Top Trader</a></td>
+                            <td>9,9999</td>
+                            <td>25/07/2562 16:30</td>
+                            <td>28/07/2562 22:00</td>
+                            <td><span class="badge badge-pill badge-success">ชำระเงินเรียบร้อย</span></td>
+                            <td></td>
+                          </tr>
+                      </tbody>
+                  </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- //////  modal reset password //////// -->
+
+<!-- Modal   login and register -->
+<div class="modal fade" id="resetpassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg " role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="padding-top: 0">
+          <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5> -->
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+
+            <div class="row ">
+                      <div class="col-12">
+                          <h3>เปลี่ยนรหัสผ่าน</h3><hr>
+                         <!-- <form> -->
+                              <div class="form-group row">
+                                  <label for="inputPassword" class="col-sm-4 col-form-label">รหัสผ่านเดิม</label>
+                                  <div class="col-sm-8">
+                                      <input type="password" name="" class="form-control" id="" placeholder="รหัสผ่านเดิม">
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputPassword" class="col-sm-4 col-form-label">รหัสผ่านใหม่</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" name="" class="form-control" id="" placeholder="รหัสผ่านใหม่">
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <label for="inputPassword" class="col-sm-4 col-form-label">รหัสผ่านใหม่ (ยืนยัน)</label>
+                                      <div class="col-sm-8">
+                                          <input type="password" name="" class="form-control" id="" placeholder="รหัสผ่านใหม่ (ยืนยัน)">
+                                      </div>
+                                    </div>
+                                <div class="row">
+                                  <div class="col-lg-8 col-sm-8 col-xs-12"></div>
+                                  <div class="col-lg-4 col-sm-8 col-xs-12 text-right">
+                                    <button type="submit" class="btn btn-info btn-block">เปลี่ยนรหัสผ่าน</button>
+                                  </div>
+                                </div>
+                          <!-- </form> -->
+                      </div>
+                    </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>

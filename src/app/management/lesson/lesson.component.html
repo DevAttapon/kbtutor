@@ -1,0 +1,61 @@
+<h5>จัดการบทเรียน</h5>
+<hr>
+<div class="row">
+  <div class="col-lg-6">
+
+      <!-- <form (ngSubmit)="onSubmit()" [formGroup]="formG" > -->
+          <form class="container" [formGroup]="formG" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+              <label for="formGroupExampleInput">เลือกคอร์สเรียน</label><br>
+              <p-dropdown (onClick) = "dropClick()" [options]="courseData" formControlName="course_id" placeholder="Select Courses" [virtualScroll]="true" [filter]="true"></p-dropdown>
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput">บทเรียน <span style="color: red;"> *</span></label>
+            <input type="text"  formControlName="lesson_name" class="form-control " id="formGroupExampleInput" required placeholder="กรอก บทเรียน">
+             <div class="alert alert-danger " *ngIf="formG.status === 'INVALID'">
+                กรุณากรอก บทเรียน.
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="formGroupExampleInput">รายละเอียด</label>
+              <p-editor formControlName="lesson_detail" [style]="{'height':'320px'}"></p-editor>
+          </div>
+
+          <button type="submit" *ngIf="formG.status !== 'INVALID'  && lesson_id === null" class="btn btn-lg btn-info">เพิ่มข้อมูล</button>
+          <button type="submit" *ngIf="formG.status !== 'INVALID' && lesson_id !== null" class="btn btn-lg btn-warning">แก้ไขข้อมูล</button>
+          <button type="reset" style="margin-left: 10px;" (click)="reset()"  *ngIf="formG.status !== 'INVALID' && lesson_id !== null" class="btn btn-lg btn-danger">ยกเลิก</button>
+        </form>
+  </div>
+  <div class="col-lg-6">
+      <h4>รายการ</h4>
+      <hr>
+      <div class="form-group">
+          <label for="formGroupExampleInput">เลือกดูตามคอร์สเรียน</label><br>
+          <p-dropdown (onClick) = "dropClick()" [options]="courseData"  placeholder="Select Category" [virtualScroll]="true" [filter]="true"></p-dropdown>
+      </div>
+      <table class="table table-striped table-bordered table-hover ">
+          <thead class="">
+            <th>#</th>
+            <th>บทเรียน</th>
+            <th>รายละเอียด</th>
+            <th>วันที่</th>
+            <th></th>
+          </thead>
+          <tbody>
+             <tr *ngFor="let item of lessonData; let i = index" >
+                 <td>{{i+1}}</td>
+                 <td>{{item.lesson_name}}</td>
+                 <td>{{item.lesson_detail}}</td>
+                 <td>{{item.created_at | date : 'dd/MM/yyyy'}}</td>
+                 <td>
+                  <a (click)="onUpdate(item.id)"  class="btn  btn-sm btn-warning" >แก้ไข</a>
+                  <a (click)="onDelete(item.id)"  class="btn  btn-sm btn-danger" style="margin-left:10px;">ลบ</a>
+                 </td>
+               </tr>
+         </tbody>
+
+
+
+        </table>
+  </div>
+</div>

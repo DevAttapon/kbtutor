@@ -1,0 +1,30 @@
+<div class="row pager">
+    <p-sidebar [(visible)]="visibleSidebar2" position="left" [baseZIndex]="10000">
+        <div class="menu-tab-header">
+            <h6>หมวดหมู่คอร์สเรียน</h6><hr>
+         </div>
+
+         <div class="menu-item" *ngFor="let item of courseList" (click)="category.callMethod(item.id)">
+           <div class="menu-text"><i class="pi pi-angle-right"></i>{{item.category_name}}</div>
+           <!-- <div class="menu-icon"><i class="pi pi-angle-right"></i></div> -->
+         </div>
+    </p-sidebar>
+    <div class="menu-tab-xs" (click)="visibleSidebar2 = true"  >
+      <span><i class="pi pi-bars"></i> หมวดหมู่</span>
+    </div>
+    <div class="col-lg-2 col-sm-12 col-xs-12 menu-tab">
+
+     <div class="menu-tab-header">
+        <h6>หมวดหมู่คอร์สเรียน</h6><hr>
+     </div>
+
+     <div class="menu-item"*ngFor="let item of courseList"  (click)="category.callMethod(item.id)" >
+       <div class="menu-text">{{item.category_name}}</div>
+       <div class="menu-icon"><i class="pi pi-angle-right"></i></div>
+     </div>
+
+    </div>
+    <div class="col-lg-10 col-sm-12 col-xs-12">
+          <app-course-categoey #category [categoryID]="categoryID"></app-course-categoey>
+    </div>
+</div>

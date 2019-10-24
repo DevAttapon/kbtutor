@@ -1,0 +1,73 @@
+<div class="row pager">
+  <div class="col-lg-3 col-sm-12 col-xs-12"></div>
+  <div class="col-lg-6 col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="col-12">
+          <h3>จัดการข้อมูลส่วนตัว</h3>
+           <hr>
+           <form [formGroup]="profileForm" >
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly formControlName="email" class="form-control-plaintext" id="staticEmail" >
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputPassword"  class="col-sm-2 col-form-label">ชื่อ-นามสกุล</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" formControlName="name" id="inputPassword" placeholder="ชื่อ-นามสกุล">
+                </div>
+                <!-- <label for="inputPassword" class="col-sm-2 col-form-label">นามสกุล</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="inputPassword" placeholder="นามสกุล">
+                </div> -->
+              </div>
+
+
+              <h3>ที่อยู่จัดส่งเอกสาร</h3>
+               <hr>
+               <div class="form-group row">
+                  <label for="inputPassword" class="col-sm-2 col-form-label">ที่อยู่</label>
+                  <div class="col-sm-10">
+                    <textarea name="" class="form-control" formControlName="address" id="" cols="30" rows="5"></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">ตำบล/แขวง</label>
+                    <div class="col-sm-4">
+                      <input type="text" name="" class="form-control" formControlName="tumbon" id="" placeholder="กรอกตำบล/แขวง">                     
+                    </div>
+                    <label for="inputPassword" class="col-sm-2 col-form-label">อำเภอ/เขต</label>
+                    <div class="col-sm-4">
+                      <input type="text" name="" class="form-control" formControlName="amphur" id="" placeholder="กรอกอำเภอ/เขต">                     
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label for="inputPassword" class="col-sm-2 col-form-label">จังหวัด</label>
+                      <div class="col-sm-4">
+                          <input type="text" name="" class="form-control" formControlName="province" id="" placeholder="กรอกจังหวัด">
+                      </div>
+                      <label for="inputPassword" class="col-sm-2 col-form-label">รหัสไปรษณีย์</label>
+                      <div class="col-sm-4">
+                        <input type="text" name="" class="form-control" id="" formControlName="postCode" placeholder="กรอกรหัสไปรษณีย์">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">เบอร์โทร</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="" class="form-control" id="" formControlName="tel" placeholder="กรอกเบอร์โทร">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-8 col-sm-8 col-xs-12"></div>
+                        <div class="col-lg-4 col-sm-4 col-xs-12 text-right">
+                          <button type="submit" (click)="updateProfile()" class="btn btn-success btn-block">บันทึก</button>
+                        </div>
+                      </div>
+            </form>
+        </div>
+      </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-xs-12"></div>
+</div>

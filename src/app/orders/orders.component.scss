@@ -1,0 +1,158 @@
+@media screen and (max-width: 500px) {
+  .course-btn-order-payment {
+        width: 100%;
+  }
+  .bank-detail {
+    margin-left: 0;
+  }
+  .bank-time {
+    margin-top: 13px;
+  }
+  .course-text-header {
+    margin-top: 15%;
+    font-size: 18pt;
+  }
+}
+@media  (min-width: 768x) {
+  .course-btn-order-payment {
+    width: 100%;
+  }
+  .bank-detail {
+    margin-left: 40%;
+  }
+  .course-text-header {
+    font-size: 18pt;
+  }
+
+}
+@media screen and (min-width: 900px) {
+  .course-btn-order-payment {
+    width: 30%;
+  }
+  .bank-detail {
+    margin-left: 40%;
+  }
+}
+
+.bank-detail {
+  margin-top: 3%;
+
+}
+.bank-logo-img {
+  width: 25px;
+  height: auto;
+}
+.visa-logo {
+  width: auto;
+  height: 50px;
+}
+.mastercard-logo {
+  width: auto;
+  height: 50px;
+}
+
+.content-order {
+  margin-top : -8%;
+}
+
+
+
+
+.course-text-header {
+  font-weight: 700;
+
+}
+.left-panel {
+
+}
+.course-img-header {
+  width: 100%;
+}
+.sale-text {
+  text-decoration: line-through;
+  text-decoration-color: red;
+  color: #8c8c8c;
+ }
+ .price-text {
+  // margin-left: 5%;
+  line-height: 1.8;
+  color: #ff934c;
+  margin-top: 5%;
+ }
+ .well-get {
+  margin-top: 12%;
+    p {
+      font-size: 14pt !important;
+      font-weight: 600;
+      margin-bottom: -25px;
+      padding: 12px;
+    }
+    ul > li {
+      list-style-type: circle;
+      font-weight: 500;
+      margin-top: 11px;
+    }
+}
+ .well-get-banklist {
+  margin-top: 12%;
+    p {
+      font-size: 14pt !important;
+      font-weight: 600;
+      margin-bottom: -25px;
+      padding: 12px;
+    }
+    ul > li {
+      list-style-type: none;
+      font-weight: 500;
+      margin-top: 11px;
+    }
+}
+
+
+
+
+
+
+.modal {
+  padding-right: 0 !important;
+}
+.modal-header {
+  // border: 0;
+  padding-bottom: 0;
+}
+.modal-content {
+  border: 0;
+  border-radius: 0;
+  box-shadow: 3px 6px 10px 1px #1d1c1c96;
+}
+.modal-body {
+  padding: 3rem;
+  margin-top: -4%;
+}
+
+.course-btn-order-payment {
+
+  font-weight: 600;
+  height: 45px;
+  letter-spacing: 2px;
+  font-size: 14pt;
+  line-height: 1;
+  // background-color: #f0853e;
+  // border: 1px solid#f0853e;
+}
+.course-btn-order {
+  width: 80%;
+  font-weight: 600;
+  margin-left: 5%;
+  height: 50px;
+  letter-spacing: 2px;
+  font-size: 14pt;
+  line-height: 1;
+  background-color: #f0853e;
+  border: 1px solid#f0853e;
+}
+
+.course-btn-order:hover {
+background-color: #ff934c;
+border : 1px solid#7b7b7b;
+}

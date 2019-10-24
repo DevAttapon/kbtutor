@@ -1,0 +1,53 @@
+@media (min-width: 300px) {
+  .img-header {
+   height: auto ;
+  }
+  .content {
+    padding: 0;
+     margin-top: 15.5%;
+  }
+ }
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+ }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+
+      .content {
+        padding: 0;
+        margin-top: 5.9%;
+      }
+ }
+.height-screen-85 {
+  height: 85vh;
+}
+.content {
+  width: 100%;
+  padding-right: 15px ;
+  padding-left: 15px ;
+  margin-right: auto ;
+  margin-left: auto ;
+}
+.content-panel {
+  border-left: 1.5px solid #2c426a52;
+}
+.left-menu {
+  padding: 0;
+}
+.nav-pills .nav-link{
+  border-bottom: 1px solid #1a747333;
+}
+.nav-pills .nav-link:hover{
+    background-color: #7d7d7d17;
+    border-radius: 0;
+    border-bottom: 1px solid #1a7473;
+    transition: 0.8s;
+}
+.nav-pills .nav-link.active{
+  border-radius: 0;
+  background-color: #1a7473;
+
+}
+

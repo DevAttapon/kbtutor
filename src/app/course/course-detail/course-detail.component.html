@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row pager">
+        <div class="col-lg-8 col-sm-8 col-xs-12 left-panel" >
+          <h3 class=" course-text-header">{{courseData.course_name}}</h3>
+
+          <div class="card  text-white course-img-header">
+              <img style="height: 350px;" src="{{courseData.course_pic}}" class="card-img" alt="...">
+              <div class="card-img-overlay">
+                <!-- <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text">Last updated 3 mins ago</p> -->
+              </div>
+            </div>
+
+
+            <div class="row">
+               <div  class="col-12 course-detail">
+                 <h5>รายละเอียด</h5><hr>
+               </div>
+               <div class="col-12 course-detail-content" id="detail-content">
+                      <span [innerHTML]="courseData.course_detail"> </span>
+               </div>
+               <div class="col-12  readmore" (click)="detailTaggle(true)"  >อ่านทั้งหมด <span class="pi pi-chevron-down"></span></div>
+               <div class="col-12  readhide"  (click)="detailTaggle(false)">ย่อเนื้อหา <span class="pi pi-chevron-up"></span></div>
+            </div>
+
+
+            <div class="row">
+                <div  class="col-12 course-detail">
+                  <h5>เนื้อหาของคอร์สนี้</h5><hr>
+                </div>
+                <div class="col-12" *ngFor="let item of courseData.lesson" >
+                  <div class="lesson">
+                      <span>{{item.lesson_name}}</span>
+                  </div>
+                  <div class="lesson-detail">
+                    <div *ngFor="let item2 of item.video">
+                        <div class="section-title-left">{{item2.video_detail}}</div>
+                        <div class="section-title-right" *ngIf="userAuth">
+                        <app-video-player [videoSrc]="item2.video_link" [videoType]="item2.video_type" [videoTitle]="item2.video_detail"></app-video-player>
+                         <!-- <div>12:00</div> -->
+                        </div>
+                    </div>     
+                  </div>
+                </div>       
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-sm-4 col-xs-12"  >
+            <div class=" order-group text-center ">
+                <h4 class="course-text-header  price-text">{{courseData.course_price_pro | number}} บาท <small class="sale-text">{{courseData.course_price | number}} บาท</small></h4>
+
+                <app-orders-modal modalID="{{courseData.id}}" active="0"></app-orders-modal>
+            </div>
+            <div class="row">
+              <div class="well-get">
+                  <p>สิ่งที่คุณจะได้รับ</p>
+                  <hr>
+                  <ul>
+                      <li>สามารถเรียนจากที่ไหนก็ได้ เมื่อไรก็ได้ ตลอดชีวิต</li>
+                      <li>ไม่สอนทฤษฎีที่เพื่อน ๆ สามารถหาได้ฟรีจาก Internet</li>
+                  </ul>
+              </div>
+            </div>
+
+
+        </div>
+      </div>
+</div>
