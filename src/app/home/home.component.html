@@ -31,157 +31,29 @@
           </div>
           <div  class="view-all">
             <p>
-              <a href="#"><i class="pi pi-plus-circle"></i> ดูทั้งหมด</a>
+              <a [routerLink]="['/courses']"><i class="pi pi-plus-circle"></i> ดูทั้งหมด</a>
             </p>
           </div>
         </div>
         <br>
           <main class="grid-item main">
             <div class="items">
-              <div class="item item1">
+              <div class="item item1" *ngFor="let item of courseRecomemnd">
 
-                    <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']" >
+                    <p-card header="{{item.course_name}}"   styleClass="card-item-size" [routerLink]="['/courses-view',item.id]" >
                         <p-header>
-                            <img src="Card" src="assets/images/001.png">
+                            <img src="Card" style="max-height: 150px;min-height: 150px;" src="{{item.course_pic}}">
                         </p-header>
                         <div >
-                          <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
+                          <span [innerHTML]="item.course_detail" style="display:block; height: 56px;overflow: hidden; "></span>
                           <br><div style="float: right;">
-                              <p style="color : red;">1,999 บาท</p>
+                            <p style="color : red;">{{item.course_price_pro | number}} บาท</p>
                           </div>
                         </div>
                         <p-footer></p-footer>
                       </p-card>
 
-              </div>
-              <div class="item item2">
-
-                        <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                            <p-header>
-                                <img src="Card" src="assets/images/001.png">
-                            </p-header>
-                            <div >
-                              <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                              <br><div style="float: right;">
-                                  <p style="color : red;">1,999 บาท</p>
-                              </div>
-                            </div>
-                            <p-footer></p-footer>
-                          </p-card>
-
-              </div>
-              <div class="item item3">
-
-                    <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                        <p-header>
-                            <img src="Card" src="assets/images/001.png">
-                        </p-header>
-                        <div >
-                          <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                          <br><div style="float: right;">
-                              <p style="color : red;">1,999 บาท</p>
-                          </div>
-                        </div>
-                        <p-footer></p-footer>
-                      </p-card>
-
-              </div>
-              <div class="item item4">
-
-                    <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                        <p-header>
-                            <img src="Card" src="assets/images/001.png">
-                        </p-header>
-                        <div >
-                          <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                          <br><div style="float: right;">
-                              <p style="color : red;">1,999 บาท</p>
-                          </div>
-                        </div>
-                        <p-footer></p-footer>
-                      </p-card>
-
-              </div>
-              <div class="item item5">
-
-                    <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                        <p-header>
-                            <img src="Card" src="assets/images/001.png">
-                        </p-header>
-                        <div >
-                          <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                          <br><div style="float: right;">
-                              <p style="color : red;">1,999 บาท</p>
-                          </div>
-                        </div>
-                        <p-footer></p-footer>
-                      </p-card>
-
-              </div>
-              <div class="item item6">
-
-                    <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                        <p-header>
-                            <img src="Card" src="assets/images/001.png">
-                        </p-header>
-                        <div >
-                          <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                          <br><div style="float: right;">
-                              <p style="color : red;">1,999 บาท</p>
-                          </div>
-                        </div>
-                        <p-footer></p-footer>
-                      </p-card>
-
-              </div>
-              <div class="item item7">
-
-                    <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                        <p-header>
-                            <img src="Card" src="assets/images/001.png">
-                        </p-header>
-                        <div >
-                          <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                          <br><div style="float: right;">
-                              <p style="color : red;">1,999 บาท</p>
-                          </div>
-                        </div>
-                        <p-footer></p-footer>
-                      </p-card>
-
-              </div>
-              <div class="item item8">
-
-                    <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                        <p-header>
-                            <img src="Card" src="assets/images/001.png">
-                        </p-header>
-                        <div >
-                          <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                          <br><div style="float: right;">
-                              <p style="color : red;">1,999 บาท</p>
-                          </div>
-                        </div>
-                        <p-footer></p-footer>
-                      </p-card>
-
-              </div>
-              <div class="item item9">
-
-                    <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                        <p-header>
-                            <img src="Card" src="assets/images/001.png">
-                        </p-header>
-                        <div >
-                          <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                          <br><div style="float: right;">
-                              <p style="color : red;">1,999 บาท</p>
-                          </div>
-                        </div>
-                        <p-footer></p-footer>
-                      </p-card>
-
-              </div>
+              </div>             
 
             </div>
           </main>
@@ -193,157 +65,30 @@
             </div>
             <div  class="view-all">
               <p>
-                <a href="#"><i class="pi pi-plus-circle"></i> ดูทั้งหมด</a>
+                <a [routerLink]="['/courses']"><i class="pi pi-plus-circle"></i> ดูทั้งหมด</a>
               </p>
             </div>
           </div>
           <br>
             <main class="grid-item main">
               <div class="items items-2 ">
-                <div class="item item1">
+                <div class="item item1" *ngFor="let item of coursePopular">
 
-                      <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                          <p-header>
-                              <img src="Card" src="assets/images/001.png">
-                          </p-header>
-                          <div >
-                            <span>222 KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                            <br><div style="float: right;">
-                                <p style="color : red;">1,999 บาท</p>
-                            </div>
-                          </div>
-                          <p-footer></p-footer>
-                        </p-card>
+                  <p-card header="{{item.course_name}}"   styleClass="card-item-size" [routerLink]="['/courses-view',item.id]" >
+                      <p-header>
+                          <img src="Card" style="max-height: 150px;min-height: 150px;" src="{{item.course_pic}}">
+                      </p-header>
+                      <div >
+                        <span [innerHTML]="item.course_detail" style="display:block; height: 56px;overflow: hidden; "></span>
+                        <br><div style="float: right;">
+                          <p style="color : red;">{{item.course_price_pro | number}} บาท</p>
+                        </div>
+                      </div>
+                      <p-footer></p-footer>
+                    </p-card>
 
-                </div>
-                <div class="item item2">
-
-                          <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                              <p-header>
-                                  <img src="Card" src="assets/images/001.png">
-                              </p-header>
-                              <div >
-                                <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                                <br><div style="float: right;">
-                                    <p style="color : red;">1,999 บาท</p>
-                                </div>
-                              </div>
-                              <p-footer></p-footer>
-                            </p-card>
-
-                </div>
-                <div class="item item3">
-
-                      <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                          <p-header>
-                              <img src="Card" src="assets/images/001.png">
-                          </p-header>
-                          <div >
-                            <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                            <br><div style="float: right;">
-                                <p style="color : red;">1,999 บาท</p>
-                            </div>
-                          </div>
-                          <p-footer></p-footer>
-                        </p-card>
-
-                </div>
-                <div class="item item4">
-
-                      <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                          <p-header>
-                              <img src="Card" src="assets/images/001.png">
-                          </p-header>
-                          <div >
-                            <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                            <br><div style="float: right;">
-                                <p style="color : red;">1,999 บาท</p>
-                            </div>
-                          </div>
-                          <p-footer></p-footer>
-                        </p-card>
-
-                </div>
-                <div class="item item5">
-
-                      <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                          <p-header>
-                              <img src="Card" src="assets/images/001.png">
-                          </p-header>
-                          <div >
-                            <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                            <br><div style="float: right;">
-                                <p style="color : red;">1,999 บาท</p>
-                            </div>
-                          </div>
-                          <p-footer></p-footer>
-                        </p-card>
-
-                </div>
-                <div class="item item6">
-
-                      <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                          <p-header>
-                              <img src="Card" src="assets/images/001.png">
-                          </p-header>
-                          <div >
-                            <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                            <br><div style="float: right;">
-                                <p style="color : red;">1,999 บาท</p>
-                            </div>
-                          </div>
-                          <p-footer></p-footer>
-                        </p-card>
-
-                </div>
-                <div class="item item7">
-
-                      <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                          <p-header>
-                              <img src="Card" src="assets/images/001.png">
-                          </p-header>
-                          <div >
-                            <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                            <br><div style="float: right;">
-                                <p style="color : red;">1,999 บาท</p>
-                            </div>
-                          </div>
-                          <p-footer></p-footer>
-                        </p-card>
-
-                </div>
-                <div class="item item8">
-
-                      <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                          <p-header>
-                              <img src="Card" src="assets/images/001.png">
-                          </p-header>
-                          <div >
-                            <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                            <br><div style="float: right;">
-                                <p style="color : red;">1,999 บาท</p>
-                            </div>
-                          </div>
-                          <p-footer></p-footer>
-                        </p-card>
-
-                </div>
-                <div class="item item9">
-
-                      <p-card header="KruBird TOEIC  'พลิกดินสู่ดาว' "   styleClass="card-item-size" [routerLink]="['/courses-view']">
-                          <p-header>
-                              <img src="Card" src="assets/images/001.png">
-                          </p-header>
-                          <div >
-                            <span>KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"KruBird TOEIC  "พลิกดินสู่ดาว"</span>
-                            <br><div style="float: right;">
-                                <p style="color : red;">1,999 บาท</p>
-                            </div>
-                          </div>
-                          <p-footer></p-footer>
-                        </p-card>
-
-                </div>
+            </div>    
+               
 
               </div>
             </main>

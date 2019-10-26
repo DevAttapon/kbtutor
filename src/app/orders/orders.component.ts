@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { formControlBinding } from '@angular/forms/src/directives/reactive_directives/form_control_directive';
+import { HttpRequest, HttpEventType, HttpClient } from '@angular/common/http';
 declare var $: any;
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-orders-modal',
@@ -28,6 +29,9 @@ export class OrdersComponent implements OnInit {
   loginError: any = null;
   chkForm = true;
   bankData: any;
+  bankItem: any;
+  imgData: any;
+  imgView: any;
   forbiddenUsernames: any[] = ['bamossza', 'admin', 'superadmin'];
   loginForm = new FormGroup({
     username : new FormControl('m@gmail.com'),
@@ -43,10 +47,10 @@ export class OrdersComponent implements OnInit {
     password_confirmation: new FormControl(null,Validators.required)
   });
 
-  orderForm = new FormGroup({
+  orderForm = new FormGroup({ 
     price: new FormControl(),
     pay_date: new FormControl(),
-    pay_time: new FormControl(),
+    pay_time: new FormControl({hour: 13, minute: 30}),
     pay_pic: new FormControl()
   });
 
@@ -54,6 +58,7 @@ export class OrdersComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private _service: AppService,
+    private http: HttpClient,
   ) { 
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     if(this.currentUser) {
@@ -74,14 +79,66 @@ export class OrdersComponent implements OnInit {
   ];
   
   this.getData(this.modalID);
-  this.getBank()
+  this.getBank();
   }
-getBank() {
-  this._service.getData('/bank').subscribe((res)=> {
-    this.bankData = res[0];
+
+
+order() {
+  let time = this.orderForm.value.pay_time.hour+':'+this.orderForm.value.pay_time.minute;
+  const formData = new FormData();
+  formData.append('pay_price',this.courseData.course_price_pro);
+  formData.append('pay_datetime',this.formatDate(this.orderForm.value.pay_date)+' '+time);
+  formData.append('pay_bank',this.bankItem.id);
+  formData.append('course_id',this.modalID);
+  formData.append('username',this.currentUser.id+'');
+  formData.append('pay_status','');
+  if (this.imgData) {
+  formData.append('pay_pic',  this.imgData);
+  } 
+
+  const uploadReq = new HttpRequest('POST', 'http://127.0.0.1:8000/api/pay', formData, {
+    reportProgress: true,
   });
+   this.http.request(uploadReq).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+      } else if (event.type === HttpEventType.Response) {
+        Swal.fire({
+          title: 'ยืนการการชำระเรียบร้อย.',
+          text: "กรุณาตรวจสอบสถานะการชำระเงินที่ เมนูประวัติการสั่งซื้อ",
+          type: 'success',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ok'
+        }).then((result) => {
+          if (result.value) {
+            location.reload();
+          }
+        })
+       
+      }
+    });
+}
+onFileChanged(event) {
+  this.imgData = event[0];
+  const reader = new FileReader();
+  // if (event.target.files && event.target.files.length > 0) {
+    const file = event[0];
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+     this.imgView = reader.result;
+    };
 }
 
+
+getBank() {
+  this._service.getData('/bank').subscribe((res)=> {
+    this.bankData = res.data;
+  });
+}
+bankSelectItem(item: any) {
+  this.bankItem = item;
+}
 
   userLogin (): void {
 
@@ -164,5 +221,17 @@ getBank() {
   onUpload(event) {
         this.uploadedFiles.push(event.file);
     }
-
+     formatDate(date) {
+      var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+  
+      if (month.length < 2) 
+          month = '0' + month;
+      if (day.length < 2) 
+          day = '0' + day;
+  
+      return [year, month, day].join('-');
+  }
 }

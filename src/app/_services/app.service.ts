@@ -88,7 +88,6 @@ export class AppService {
   getImage(url: string):any {
     return new Promise(resolve => {
       this.http.get(this._BASE_API + url).subscribe((res: any) => {
-        console.log(res);
         resolve(this._BASE_API_FILE +res.path);
       });
     });

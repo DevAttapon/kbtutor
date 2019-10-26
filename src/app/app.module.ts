@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-
+import {CommonModule} from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -16,7 +16,9 @@ import {FieldsetModule} from 'primeng/fieldset';
 import {SidebarModule} from 'primeng/sidebar';
 import {StepsModule} from 'primeng/steps';
 import {FileUploadModule} from 'primeng/fileupload';
-
+import {CalendarModule} from 'primeng/calendar';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {  NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap'; 
 /////////////  Component Import /////////////////////
 import { TemplateComponent } from './template/template.component';
 import { HomeComponent } from './home/home.component';
@@ -61,6 +63,8 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    //NgModule,
+    NgbModule,
     CardModule,
     ButtonModule,
     MenubarModule,
@@ -70,7 +74,10 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
     FileUploadModule,
     HttpClientModule,
     DropdownModule,
-    EditorModule
+    EditorModule,
+    CalendarModule,
+    NgbTimepickerModule,
+    CommonModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

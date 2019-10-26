@@ -26,6 +26,9 @@ export class SearchDetailComponent implements OnInit {
     
     this._service.getData('/courseByName/'+ search).subscribe((res) => {
       this.courseData = res.data;   
+      for(let i =0 ;i< res.data.length;i++) {         
+        this._service.getImage('/getImage/'+res.data[i].course_pic).then((value) =>  this.courseData[i].course_pic  = value);        
+      }  
     });
   }
 

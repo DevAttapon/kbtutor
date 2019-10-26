@@ -95,7 +95,7 @@
                               <hr>
                           </div>
 
-                          <!-- <form class="text-left"> -->
+                          <form class="text-left" [formGroup]="orderForm" (ngSubmit)="order()">
                               <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-5 col-form-label">จำนวนเงินที่ต้องชำระ</label>
                                 <div class="col-sm-7">
@@ -107,11 +107,14 @@
                                 <div class="row">
                                   <legend class="col-form-label col-sm-5 pt-0">	เลือกบัญชี</legend>
                                   <div class="col-sm-7">
-                                    <div class="form-check" *ngFor="let item of bankData">
-                                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                                      <label class="form-check-label" for="gridRadios1">
-                                       {{item.bank_name}} - {{item.bank_no}}
-                                      </label>
+                                    <div class="form-check" >
+                                      <div class="text-left" *ngFor="let item of bankData">
+                                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" (change)="bankSelectItem(item)" value="option1" checked>
+                                          <label class="form-check-label" for="gridRadios1">
+                                             {{item.bank_name}} - {{item.bank_no}}
+                                          </label>
+                                      </div>
+                                      
                                     </div>
                                   
 
@@ -119,10 +122,13 @@
 
                                   <div class="row">
                                     <div class="col-lg-5"></div>
-                                    <div class="col-lg-7 col-sm-12 col-xs-12 bank-detail">
-                                        <label for="inputEmail3" class="col-sm-12 col-form-label">ธนาคาร: ธนาคารไทยพาณิชย์</label>
-                                        <label for="inputEmail3" class="col-sm-12 col-form-label">ชื่อบัญชี : xxxxxx xxxxxx</label>
-                                        <label for="inputEmail3" class="col-sm-12 col-form-label">หมายเลขบัญชี: 999999999</label>
+                                    <div class="col-lg-7 col-sm-12 col-xs-12 text-left bank-detail">
+                                      <div *ngIf="bankItem">
+                                          <label for="inputEmail3" class="col-sm-12 col-form-label">ธนาคาร: {{bankItem.bank_name}}</label>
+                                        <label for="inputEmail3" class="col-sm-12 col-form-label">ชื่อบัญชี : {{bankItem.bank_owner_name}}</label>
+                                        <label for="inputEmail3" class="col-sm-12 col-form-label">หมายเลขบัญชี: {{bankItem.bank_no}}</label>
+                                      </div>
+                                        
                                     </div>
                                   </div>
                                 </div>
@@ -130,17 +136,21 @@
                               <div class="form-group row">
                                   <label for="inputEmail3" class="col-sm-5 col-form-label">วัน/เวลา ที่ฝากเงิน</label>
                                   <div class="col-sm-4">
-                                    <input type="date" class="form-control" id="inputEmail3" placeholder="วัน ที่ฝากเงิน" >
+                                      <p-calendar formControlName="pay_date" dateFormat="dd/mm/yy"></p-calendar>
+                                      <ngb-timepicker formControlName="pay_time"></ngb-timepicker>
+                                    <!-- <input type="date" class="form-control" formControlName="pay_date" id="inputEmail3" placeholder="วัน ที่ฝากเงิน" > -->
                                   </div>
                                   <div class="col-sm-3 bank-time">
-                                    <input type="time" class="form-control" id="inputEmail3" placeholder="เวลา ที่ฝากเงิน" >
+                                     
+                                    <!-- <input type="time" class="form-control" formControlName="pay_time" id="inputEmail3" placeholder="เวลา ที่ฝากเงิน" > -->
                                   </div>
                               </div>
 
                               <div class="form-group row">
                                   <label for="inputEmail3" class="col-sm-5 col-form-label">รูปภาพสลิป (ขนาดไม่เกิน 10Mb)</label>
                                   <div class="col-sm-7">
-                                      <p-fileUpload mode="basic" name="demo[]" url="" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
+                                      <input type="file" #file formControlName="pay_pic"   (change)="onFileChanged(file.files)" class="form-control" id="formGroupExampleInput" placeholder="กรอก รูปภาพ">
+                                      <!-- <p-fileUpload mode="basic" name="demo[]" url="" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload> -->
                                   </div>
                               </div>
 
@@ -149,7 +159,7 @@
                                   <button type="submit" class="btn btn-success">  ชำระเงิน</button>
                                 </div>
                               </div>
-                            <!-- </form> -->
+                            </form>
 
 
                       </div>

@@ -9,7 +9,7 @@ import { User } from '../_models/user';
 import { first } from 'rxjs/operators';
 import { AppService } from '../_services';
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
-
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -19,12 +19,16 @@ import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 })
 export class TemplateComponent implements OnInit {
   passConfirm: boolean = false;
+  resetPassConfirm: boolean = false;
+  old_pass_chk = false;
+  old_pass_chk_text: any;
   currentUser: User;
   loginError: any = null;
   items: MenuItem[];
   chkForm = true;
   userAuth = false;
   forbiddenUsernames: any[] = ['bamossza', 'admin', 'superadmin'];
+  historyData: any;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -33,7 +37,9 @@ export class TemplateComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     if(this.currentUser) {
       this.userAuth = true;
+      this. history();
     }
+    
 }
 
 loginForm = new FormGroup({
@@ -48,6 +54,12 @@ registerForm = new FormGroup({
   email: new FormControl(null,Validators.required),
   password: new FormControl(null,[Validators.required,Validators.minLength(6)]),
   password_confirmation: new FormControl(null,Validators.required)
+});
+
+reseetPaswordForm = new FormGroup({
+  old_pass: new FormControl(null,Validators.required),
+  new_pass: new FormControl(null,[Validators.required,Validators.minLength(6)]),
+  new_pass_comfrim: new FormControl(null,Validators.required)
 });
 
 searchFrom = new FormGroup({
@@ -79,6 +91,12 @@ searchFrom = new FormGroup({
       }
   ];
   }
+
+  history(){
+      this._service.getData('/orderHistory/'+ this.currentUser.id).subscribe((res)=> {
+          console.log('history : ', res);
+      });
+  }
   search() {
     const toUrl = '/search';
     this.router.navigate([toUrl,this.searchFrom.value.text]);
@@ -109,7 +127,6 @@ register() {
   };
   this._service.postData('/signup', data).subscribe((res) => {
     if (res) {
-      console.log(res);
       const username =  this.registerForm.value.email;
       const password = this.registerForm.value.password;
         this.loginAuthen(username, password);
@@ -179,5 +196,53 @@ loginAuthen (username , password) {
      }
   }
 
+  resetpassword() { Swal.fire({
+    title: 'ต้องการเปลี่ยนรหัสผ่าน หรือไม่?',
+    text: '',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#0f821b',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes'
+  }).then((result) => {
+    if (result.value) {
+      const  data = {
+        current: this.reseetPaswordForm.value.old_pass,
+        password: this.reseetPaswordForm.value.new_pass
+      };
+      this._service.postData('/changePassword', data).subscribe((res)=> {
+          console.log('reset password : ', res);
+          if(res.errors) {
+            this.old_pass_chk = true;
+            this.old_pass_chk_text = res.errors.current[0];
+          }else {
+            this.old_pass_chk = false;
+            this.old_pass_chk_text = null;
+
+
+            Swal.fire(
+              'เปลี่ยนรหัสผ่านเรียบร้อย!',
+              'กรุณาเข้าสู่ระบบใหม่อีกครั้ง.',
+              'success'
+            );
+
+            this.authenticationService.logout();
+          } 
+
+
+      });
+        }
+  });
+    
+  }
+  resetPasswordConfirm() {
+
+
+     if ( this.reseetPaswordForm.value.new_pass !== this.reseetPaswordForm.value.new_pass_comfrim) {
+       this.resetPassConfirm = true;
+     }else {
+       this.resetPassConfirm = false;
+     }
+  }
 
 }
