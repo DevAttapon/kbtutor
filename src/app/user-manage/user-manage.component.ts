@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class UserManageComponent implements OnInit {
   currentUser: User;
+  addressData: any;
   constructor(
     private authenticationService: AuthenticationService,
     private _service : AppService
@@ -31,6 +32,7 @@ export class UserManageComponent implements OnInit {
 
   ngOnInit() {
     this.getUser();
+    this.getAddress();
   }
 
 
@@ -41,7 +43,22 @@ export class UserManageComponent implements OnInit {
     });
   }
 
+getAddress()
+{
+  this._service.getData('/addressByUsername/'+this.currentUser.id).subscribe((res: any)=>{
+     this.addressData = res.data;
+    
+      if(res.data.length > 0 ){
+         this.profileForm.controls.address.setValue(res.data[0].address);
+         this.profileForm.controls.tumbon.setValue(res.data[0].subdistrict);
+         this.profileForm.controls.amphur.setValue(res.data[0].	district);
+         this.profileForm.controls.province.setValue(res.data[0].province);
+         this.profileForm.controls.postCode.setValue(res.data[0].	zipcode);
+         this.profileForm.controls.tel.setValue(res.data[0].tel);
+      }
 
+  });
+}
 
   updateProfile() {
     const data = {
@@ -58,7 +75,8 @@ export class UserManageComponent implements OnInit {
               tel: this.profileForm.value.tel,
               username: this.currentUser.id
             };
-          this._service.postData('/address', dataAddress).subscribe((res: any) => {
+            if(this.addressData.length > 0){
+              this._service.putData('/address/'+this.addressData[0].id, dataAddress).subscribe((res: any) => {
                 Swal.fire(
                   'แก้ไขข้อมูลเรียบร้อย.',
                   'กดปุ่มเพื่อปิด',
@@ -66,7 +84,21 @@ export class UserManageComponent implements OnInit {
                 );
                 this.currentUser.user = this.profileForm.value.name;
                 this.getUser();
-          });
+                this.getAddress();
+              });
+            }else{
+              this._service.postData('/address', dataAddress).subscribe((res: any) => {
+                Swal.fire(
+                  'แก้ไขข้อมูลเรียบร้อย.',
+                  'กดปุ่มเพื่อปิด',
+                  'success'
+                );
+                this.currentUser.user = this.profileForm.value.name;
+                this.getUser();
+                this.getAddress();
+              });
+            }
+         
        
       }
      

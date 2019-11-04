@@ -44,6 +44,7 @@
           <i class="pi pi-user"></i> {{currentUser.user}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" *ngIf="currentUser.status === '1' " [routerLink]="['/dashboard']">จัดการข้อมูล</a>
           <a class="dropdown-item" [routerLink]="['/mycourses']">คอร์สของฉัน</a>
           <a class="dropdown-item"  href="#" data-toggle="modal" data-target="#userHistory">ประวัติการสั่งซื้อ</a>
           <a class="dropdown-item" [routerLink]="['/profile']">จัดการข้อมูลส่วนตัว</a>
@@ -103,7 +104,11 @@
                           </div>
                           <!-- <button type="submit"  data-dismiss="modal" class="btn btn login-btn">เข้าสู่ระบบ</button> -->
                           <button type="submit" (click)="userLogin()"  class="btn btn login-btn">เข้าสู่ระบบ</button>
-                          <p class="forget-password-text">ลืมรหัสผ่าน ?</p>
+                          <!-- <p class="forget-password-text" [routerLink]="['/resetpassword']"  >ลืมรหัสผ่าน ?</p> -->
+                          <div class="forget-password-text" (click)="reset.modalHide()">
+                              <app-reset-password #reset></app-reset-password>
+                          </div>
+                          
                      </div>
                 </form>
 
@@ -209,24 +214,19 @@
                       <th style="width:20%">เอกสาร</th>
                     </thead>
                       <tbody >
-                        <tr>
-                          <td>1</td>
-                          <td><a href="#" [routerLink]="['/courses-view']"> เคล็ดลับข้อละล้าน ฉบับ Top Trader</a></td>
-                          <td>9,9999</td>
-                          <td>25/07/2562 16:30</td>
-                          <td>28/07/2562 22:00</td>
-                          <td><span class="badge badge-pill badge-warning">รอตรวจสอบการชำระเงิน</span></td>
+                        <tr *ngFor="let item of historyData; let i = index">
+                          <td>{{i+1}}</td>
+                          <td><a data-dismiss="modal" [routerLink]="['/courses-view',item.course[0].id]"> {{item.course[0].course_name}}</a></td>
+                          <td>{{item.pay_price}}</td>
+                          <td>{{item.created_at | date : 'dd/MM/yyyy HH:mm'}}</td>
+                          <td>{{item.pay_datetime | date : 'dd/MM/yyyy HH:mm'}}</td>
+                          <td>
+                            <span *ngIf="item.pay_status !== '1'" class="badge badge-pill badge-warning">รอตรวจสอบการชำระเงิน</span>
+                            <span *ngIf="item.pay_status === '1'" class="badge badge-pill badge-success">ชำระเงินเรียบร้อย</span>
+                          </td>
                           <td></td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#" [routerLink]="['/courses-view']"> เคล็ดลับข้อละล้าน ฉบับ Top Trader</a></td>
-                            <td>9,9999</td>
-                            <td>25/07/2562 16:30</td>
-                            <td>28/07/2562 22:00</td>
-                            <td><span class="badge badge-pill badge-success">ชำระเงินเรียบร้อย</span></td>
-                            <td></td>
-                          </tr>
+                        
                       </tbody>
                   </table>
             </div>

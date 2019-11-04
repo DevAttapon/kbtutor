@@ -10,18 +10,29 @@ export class VideoPlayerComponent implements OnInit {
   @Input() videoType: any;
   @Input() videoSrc: any;
   @Input() videoTitle: any;
+  @Input() modalID: any;
   videoPlayer: any;
+  videoLocal: any;
   constructor(
     private _service : AppService
-  ) { }
+  ) {
+   }
 
   ngOnInit() {
     window.scrollTo(0, 0);
+  
+    this.modalID = 'videoPlayer'+this.modalID;
     this.videoPath(this.videoSrc);
   }
 
   videoPath(filename: any) {
-    this._service.getImage('/getBearer/'+filename).then((value) =>  this.videoPlayer  = value);      
+    this._service.getImage('/getImage/'+filename).then((value) => {
+      this.videoPlayer  = ' <video id="player" controls  controlsList="nodownload" > <source src="'+value+'" type="'+this.videoType+'"> </video>';
+    });      
+  }
+  play() {
+    $('#'+ this.modalID).modal('show');
+    $('video').attr('controlsList','nodownload');
   }
 
   detailTaggle(event: any): void {

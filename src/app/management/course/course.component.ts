@@ -5,6 +5,8 @@ import { HttpRequest, HttpClient, HttpEventType } from '@angular/common/http';
 import { containerRefreshEnd } from '@angular/core/src/render3';
 import { SelectItem } from 'primeng/api';
 import Swal from 'sweetalert2';
+import { AuthenticationService } from 'src/app/_services';
+import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-course',
@@ -15,6 +17,7 @@ export class CourseComponent implements OnInit {
   categoryData: SelectItem[];
   categoryDataTmp: any;
   courseData: any;
+  courseDataview: any[]
   course_pic;
   course_id: any = null;
   imgView: any ;
@@ -31,11 +34,20 @@ export class CourseComponent implements OnInit {
       course_pic : new FormControl(),
       username : new FormControl(),
     });
+  currentUser: User;
+  userAuth: boolean;
 
   constructor(
     private http: HttpClient,
-    private _service: AppService
-    ) { }
+    private _service: AppService,
+    private authenticationService: AuthenticationService,
+    ) {
+
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+      if(this.currentUser) {
+        this.userAuth = true;
+      }
+     }
 
   ngOnInit() {
 
@@ -60,7 +72,7 @@ onSubmit() {
           formData.append('course_pic', '');
         }
 
-        formData.append('username', 'Admin');
+        formData.append('username',''+this.currentUser.id);
         formData.append('category_id', this.formG.value.category_id);
 
 if ( this.course_id === null ) {
@@ -162,6 +174,7 @@ getDataCategery(): any {
 getData() {
   this._service.getData('/course').subscribe((res) => {
     this.courseData = res.data;
+    this.courseDataview = res.data;
   });
 }
 reset() {
@@ -183,6 +196,12 @@ onFileChanged(event) {
 }
 dropClick() {
   this.categoryData =  this.getDataCategery();
+}
+coursedataByID (event :any){
+  this.courseDataview = [];
+  this._service.getData('/course/' + event.value).subscribe((res) => {
+    this.courseDataview.push(res.data);
+  });
 }
 
 

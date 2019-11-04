@@ -11,7 +11,7 @@ import { getNgModuleDef } from '@angular/core/src/render3/definition';
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
-    private  userAcc: any = [{username: ''}];
+   
 
     constructor(private http: HttpClient, private appservice: AppService) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -23,16 +23,7 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): any {
-      // Test
-
-    //  // if (username === 'user.dummy@gmail.com' && password === 'user.dummy1234') {
-
-    //     this.userAcc[0].username = username;
-    //     localStorage.setItem('currentUser', JSON.stringify(this.userAcc));
-    //     this.currentUserSubject.next(this.userAcc[0]);
-    //  // }
-    //  return this.userAcc[0];
-
+    
       // Development
   const data = {
     email : username,

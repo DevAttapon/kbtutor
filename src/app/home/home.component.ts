@@ -11,12 +11,18 @@ export class HomeComponent implements OnInit {
 
   courseRecomemnd: any;
   coursePopular: any;
+  titleimg: any;
   constructor(
     private _service : AppService
   ) { 
 
     this.getCoursePopular();
     this.getCourseRecommend();
+    this._service.getData('/getTitleImage').subscribe((res: any)=> {
+            
+        this._service.getImage('/getImage/'+res.data.data[0].title_image).then((value) =>  this.titleimg  = value);        
+    
+    });
     
   }
 

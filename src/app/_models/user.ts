@@ -4,4 +4,5 @@ export class User {
   token_type: any;
   expires_in: any;
   user: any;
+  status: any;
 }

@@ -5,6 +5,8 @@ import { HttpRequest, HttpClient, HttpEventType } from '@angular/common/http';
 import { containerRefreshEnd } from '@angular/core/src/render3';
 import { SelectItem } from 'primeng/api';
 import Swal from 'sweetalert2';
+import { AuthenticationService } from 'src/app/_services';
+import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-lesson',
@@ -16,6 +18,7 @@ export class LessonComponent implements OnInit {
   courseData: SelectItem[];
   courseDataTmp: any;
   lessonData: any;
+  lessonDataView: any;
   lesson_id: any = null;
   imgView: any ;
   imgData: any ;
@@ -28,11 +31,20 @@ export class LessonComponent implements OnInit {
       lesson_detail : new FormControl(),
       username : new FormControl(),
     });
+  userAuth: boolean;
+  currentUser: User;
 
   constructor(
     private http: HttpClient,
-    private _service: AppService
-    ) { }
+    private _service: AppService,
+    private authenticationService: AuthenticationService,
+    ) {
+
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+      if(this.currentUser) {
+        this.userAuth = true;
+      }
+     }
 
   ngOnInit() {
 
@@ -51,7 +63,7 @@ onSubmit() {
     lesson_price_pro: this.formG.value.lesson_price_pro,
     lesson_detail: btoa(this.formG.value.lesson_detail),
     lesson_pic: this.formG.value.lesson_pic,
-    username: 'Admin'
+    username: this.currentUser.id
   };
 
 if ( this.lesson_id === null ) {
@@ -153,5 +165,14 @@ onFileChanged(event) {
 
 dropClick() {
   this.courseData =  this.getDataCategery();
+}
+
+courseView(event: any) {
+  this._service.getData('/lessonByCourse/' + event.value).subscribe((res) => {
+    this.lessonData = res.data;
+    for ( let i = 0 ; i < this.lessonData.length; i ++) {
+      this.lessonData[i].lesson_detail =  atob(this.lessonData[i].lesson_detail);
+    }
+  });
 }
 }

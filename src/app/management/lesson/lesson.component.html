@@ -16,10 +16,10 @@
                 กรุณากรอก บทเรียน.
               </div>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
               <label for="formGroupExampleInput">รายละเอียด</label>
               <p-editor formControlName="lesson_detail" [style]="{'height':'320px'}"></p-editor>
-          </div>
+          </div> -->
 
           <button type="submit" *ngIf="formG.status !== 'INVALID'  && lesson_id === null" class="btn btn-lg btn-info">เพิ่มข้อมูล</button>
           <button type="submit" *ngIf="formG.status !== 'INVALID' && lesson_id !== null" class="btn btn-lg btn-warning">แก้ไขข้อมูล</button>
@@ -31,13 +31,13 @@
       <hr>
       <div class="form-group">
           <label for="formGroupExampleInput">เลือกดูตามคอร์สเรียน</label><br>
-          <p-dropdown (onClick) = "dropClick()" [options]="courseData"  placeholder="Select Category" [virtualScroll]="true" [filter]="true"></p-dropdown>
+          <p-dropdown (onChange)="courseView($event)" [options]="courseData"  placeholder="Select Course" [virtualScroll]="true" [filter]="true"></p-dropdown>
       </div>
       <table class="table table-striped table-bordered table-hover ">
           <thead class="">
             <th>#</th>
             <th>บทเรียน</th>
-            <th>รายละเอียด</th>
+            <!-- <th>รายละเอียด</th> -->
             <th>วันที่</th>
             <th></th>
           </thead>
@@ -45,7 +45,7 @@
              <tr *ngFor="let item of lessonData; let i = index" >
                  <td>{{i+1}}</td>
                  <td>{{item.lesson_name}}</td>
-                 <td>{{item.lesson_detail}}</td>
+                 <!-- <td>{{item.lesson_detail}}</td> -->
                  <td>{{item.created_at | date : 'dd/MM/yyyy'}}</td>
                  <td>
                   <a (click)="onUpdate(item.id)"  class="btn  btn-sm btn-warning" >แก้ไข</a>

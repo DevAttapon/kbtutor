@@ -12,6 +12,8 @@ export class CourseDetailComponent implements OnInit {
     courseData : any;
     currentUser: User;
     userAuth = false;
+    myCourse: any;
+    videoRule = false;
   constructor(
     private _service: AppService,
     private route: ActivatedRoute,
@@ -28,6 +30,7 @@ export class CourseDetailComponent implements OnInit {
     window.scrollTo(0, 0);
     let id = this.route.snapshot.paramMap.get('id');
     this.getData(id);
+    this. getMycourse (id);
 
   }
   testVideo(){
@@ -37,14 +40,26 @@ export class CourseDetailComponent implements OnInit {
   }
   getData(id: any){
     this._service.getData('/fullCourse/'+id).subscribe((res: any)=> {
-           this.courseData = res.course[0];
-               
-             this._service.getImage('/getImage/'+res.course[0].course_pic).then((value) =>  this.courseData.course_pic  = value);        
+           this.courseData = res.course[0];               
+          this._service.getImage('/getImage/'+res.course[0].course_pic).then((value) =>  this.courseData.course_pic  = value);        
         
     });
   }
 
-
+ getMycourse (courseID: any){
+  this._service.getData('/orderHistory/'+ this.currentUser.id).subscribe((res)=> {
+    this.myCourse = res.pay;
+    this.myCourse.forEach(ele => {
+      console.log('courseID : '+ele.course[0].id);
+      console.log('courseID : '+courseID);
+      console.log('pay_status : '+ele.pay_status);
+      if(ele.course[0].id == courseID && ele.pay_status == '1'){
+        console.log('in if ');
+        this.videoRule = true;
+      }    
+    });
+  });
+ }
 
 
   detailTaggle(event: any): void {

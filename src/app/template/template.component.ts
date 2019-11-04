@@ -2,13 +2,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 import {MenuItem} from 'primeng/api';
-import $ from 'jquery';
+declare var $: any;
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { User } from '../_models/user';
 import { first } from 'rxjs/operators';
 import { AppService } from '../_services';
-import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 import Swal from 'sweetalert2';
 
 
@@ -27,6 +26,7 @@ export class TemplateComponent implements OnInit {
   items: MenuItem[];
   chkForm = true;
   userAuth = false;
+  userAdmin: any
   forbiddenUsernames: any[] = ['bamossza', 'admin', 'superadmin'];
   historyData: any;
   constructor(
@@ -43,8 +43,8 @@ export class TemplateComponent implements OnInit {
 }
 
 loginForm = new FormGroup({
-  username : new FormControl('m@gmail.com'),
-  password: new FormControl('m12345')
+  username : new FormControl(),
+  password: new FormControl()
 }
 );
 
@@ -94,7 +94,7 @@ searchFrom = new FormGroup({
 
   history(){
       this._service.getData('/orderHistory/'+ this.currentUser.id).subscribe((res)=> {
-          console.log('history : ', res);
+          this.historyData = res.pay;
       });
   }
   search() {
@@ -158,7 +158,7 @@ loginAuthen (username , password) {
             location.reload(true);
           }else {
             this.loginError = dataRes.error;
-            console.log(dataRes);
+          
           }
           
       },
@@ -188,7 +188,6 @@ loginAuthen (username , password) {
   }
 
   passwordConfirm() {
-    console.log('comfiem', this.registerForm);
      if ( this.registerForm.value.password !== this.registerForm.value.password_confirmation) {
        this.passConfirm = true;
      }else {
@@ -211,7 +210,6 @@ loginAuthen (username , password) {
         password: this.reseetPaswordForm.value.new_pass
       };
       this._service.postData('/changePassword', data).subscribe((res)=> {
-          console.log('reset password : ', res);
           if(res.errors) {
             this.old_pass_chk = true;
             this.old_pass_chk_text = res.errors.current[0];
@@ -243,6 +241,11 @@ loginAuthen (username , password) {
      }else {
        this.resetPassConfirm = false;
      }
+  }
+
+  modalHide() {
+    $('#exampleModalCenter').modal('dispose');
+    // $('#exampleModalCenter').modal('hide')
   }
 
 }

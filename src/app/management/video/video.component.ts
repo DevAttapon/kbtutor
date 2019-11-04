@@ -5,6 +5,8 @@ import { HttpRequest, HttpClient, HttpEventType } from '@angular/common/http';
 import { containerRefreshEnd } from '@angular/core/src/render3';
 import { SelectItem } from 'primeng/api';
 import Swal from 'sweetalert2';
+import { AuthenticationService } from 'src/app/_services';
+import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-video',
@@ -19,6 +21,9 @@ export class VideoComponent implements OnInit {
   uploadResponse = { status: '', message: '', filePath: '' };
   Uploading: boolean = false;
 
+  videoPath: any;
+  videoType: any;
+  videoPlayer: any;
 
   courseData: SelectItem[];
   lessonData: SelectItem[];
@@ -41,14 +46,23 @@ export class VideoComponent implements OnInit {
       username : new FormControl(),
     });
   formBuilder: any;
+  userAuth: boolean;
+  currentUser: User;
 
   constructor(
     private http: HttpClient,
-    private _service: AppService
-    ) { }
+    private _service: AppService,
+    private authenticationService: AuthenticationService,
+    ) {
+
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+      if(this.currentUser) {
+        this.userAuth = true;
+      }
+     }
 
   ngOnInit() {
-   this.getDatalesson();
+  
    const gg =  this.getDataCategery();
    this.courseData = gg;
     this.getData();
@@ -63,18 +77,27 @@ onSubmit() {
     video_name: this.formG.value.video_name,
     video_price: this.formG.value.video_price,
     video_price_pro: this.formG.value.video_price_pro,
-    video_detail: btoa(this.formG.value.video_detail),
+    video_detail: this.formG.value.video_name,
     video_pic: this.formG.value.video_pic,
-    username: 'Admin'
+    username: this.currentUser.id
   };
-
 if ( this.video_id === null ) {
   this._service.postData('/video', data).subscribe((res) => {
+    Swal.fire(
+      'แก้ไขข้อมูลเรียบร้อย.',
+      'กดปุ่มเพื่อปิด',
+      'success'
+    );
     this.getData();
     this.reset();
   });
 } else {
   this._service.putData('/video/' + this.video_id, data).subscribe((res) => {
+    Swal.fire(
+      'เพิ่มข้อมูลเรียบร้อย.',
+      'กดปุ่มเพื่อปิด',
+      'success'
+    );
     this.getData();
     this.reset();
   });
@@ -83,9 +106,14 @@ if ( this.video_id === null ) {
 }
 
 onUpdate(id: any) {
+
   this._service.getData('/video/' + id).subscribe((res) => {
   //  this.formG.controls.video.setValue(res.data.video_name);
+  this._service.getImage('/getImage/'+res.data.video_link).then((value) =>  this.videoPath  = value);   
+  this.videoPlayer  = ' <video id="player" width="550" controls  controlsList="nodownload" > <source src="'+this.videoPath+'" type="'+this.videoType+'"> </video>';
+   this.videoType = res.data.video_type;
    this.video_id = res.data.id;
+   this.getDatalesson(res.data.course_id);
    this.formG.controls.video_name.setValue(res.data.video_detail);
    this.formG.controls.video_detail.setValue(atob(res.data.video_detail));
    this.formG.controls.username.setValue(res.data.username);
@@ -94,9 +122,28 @@ onUpdate(id: any) {
   });
 }
 onDelete(id: any) {
-  this._service.delData('/video/' + id).subscribe((res) => {
-    this.getData();
+  Swal.fire({
+    title: 'ต้องการลบข้อมูล หรือไม่?',
+    text: '',
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#0f821b',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes'
+  }).then((result) => {
+    if (result.value) {
+      this._service.delData('/video/' + id).subscribe((res) => {
+        Swal.fire(
+          'ลบข้อมูลเรียบร้อย!',
+          '',
+          'success'
+        );
+        this.getData();
+      });
+    
+    }
   });
+  
 }
 
 
@@ -111,8 +158,8 @@ getDataCategery(): any {
   });
   return this.courseData;
 }
-getDatalesson(): any {
-  this._service.getData('/lesson').subscribe((res: any) => {
+getDatalesson(id : any): any {
+  this._service.getData('/lessonByCourse/' + id).subscribe((res: any) => {
     this.lessonDataTmp = res.data;
     this.lessonData = [];
     for ( let i = 0 ; i <  this.lessonDataTmp.length; i ++) {
@@ -186,10 +233,14 @@ onUpload() {
 AddRow() {
 
 }
-dropClickCourse() {
+dropClickCourse(event :any ) {
   this.courseData = this.getDataCategery();
+  this.getDatalesson(event.value);
 }
-dropClickLesson() {
-  this.lessonData = this.getDatalesson();
-}
+
+  dropClickLesson(event: any) {
+    this._service.getData('/videoByLesson/ ' + event.value).subscribe((res) => {
+      this.videoData = res.data;    
+    });
+  }
 }

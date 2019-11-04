@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpRequest, HttpClient, HttpEventType } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { AuthenticationService } from 'src/app/_services';
+import { User } from 'src/app/_models/user';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -12,7 +14,8 @@ export class CategoryComponent implements OnInit {
   file: any;
   categoryData: any;
   category_id: any = null;
-
+  currentUser: User;
+  userAuth = false;
   progress: number;
   message: string;
     formG = new FormGroup({
@@ -21,8 +24,15 @@ export class CategoryComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private _service: AppService
-    ) { }
+    private _service: AppService,
+    private authenticationService: AuthenticationService,
+    ) {
+
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+      if(this.currentUser) {
+        this.userAuth = true;
+      }
+     }
 
   ngOnInit() {
       this.getData();
@@ -32,7 +42,7 @@ export class CategoryComponent implements OnInit {
   onSubmit() {
     const data = {
       category_name: this.formG.value.category,
-      username: 'Admin'
+      username: this.currentUser.id
     };
     if (this.category_id != null) {
       this._service.putData('/category/' + this.category_id, data).subscribe((res) => {

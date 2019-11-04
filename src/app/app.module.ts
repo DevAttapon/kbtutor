@@ -38,6 +38,9 @@ import { TestComponent } from './test/test.component';
 import { CourseCategoeyComponent } from './course/course-categoey/course-categoey.component';
 import { SearchDetailComponent } from './search-detail/search-detail.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ResetPasswordConfirmComponent } from './reset-password-confirm/reset-password-confirm.component';
+import { HomeImageComponent } from './management/home-image/home-image.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +59,10 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
     TestComponent,
     CourseCategoeyComponent,
     SearchDetailComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    ResetPasswordComponent,
+    ResetPasswordConfirmComponent,
+    HomeImageComponent
   ],
   imports: [
     BrowserModule,

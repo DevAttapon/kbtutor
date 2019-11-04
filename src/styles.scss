@@ -130,7 +130,31 @@
 
 
 }
-
+#player {
+  width: 100%;
+}
+.container-fluid {
+  min-height: 90vh;
+}
+.modal-backdrop {
+  z-index: 100 !important;
+}
+.modal-body {
+  padding: 5px;
+  video {
+    width: 100%;
+    height: 100%;
+  }
+}
+video::-internal-media-controls-download-button {
+  display:none;
+  }
+  video::-webkit-media-controls-enclosure {
+  overflow:hidden;
+  }
+  video::-webkit-media-controls-panel {
+  width: calc(100% + 30px); /* Adjust if necessary */
+  }
 
 .ui-steps .ui-steps-item {
   width: 33%;
