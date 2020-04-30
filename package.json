@@ -24,7 +24,7 @@
     "@sweetalert2/ngx-sweetalert2": "^6.0.1",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "primeicons": "^1.0.0",
     "primeng": "^8.1.1",
     "quill": "^1.3.7",
